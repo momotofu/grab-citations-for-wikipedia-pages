@@ -1,11 +1,13 @@
 #!/usr/bin/env python
 
 from utils import open_and_read, request_html_for
+from utils import get_citation_format_from
 from bs4 import BeautifulSoup as bSoup
 import cli.app
 
 @cli.app.CommandLineApp
 def main(app):
+    baseURL = 'https://en.wikipedia.org'
     # Store hyperlink sitations as key value pairs with the link
     # being the key.
     hyperlinksCitations = {}
@@ -20,14 +22,21 @@ def main(app):
         mainPageSoup = bSoup(request_html_for(hyperlink), 'html.parser')
 
         # retrieve citation page hyperlink
-        citationPageHyperlink = mainPageSoup.find(
+        citationPageHyperlink = baseURL + mainPageSoup.find(
             'a',
             title='Information on how to cite this page')['href'].strip()
 
         # retrieve citation page soup
         citationPageSoup = bSoup(
             request_html_for(citationPageHyperlink),
-            'html.parse')
+            'html.parser')
+
+        print('citationPageSoup: ', citationPageSoup.title)
+
+        citation = get_citation_format_from(
+            citationPageSoup,
+            'MLA_Style_Manual')
+        print('citation: ', citation)
 
         # Map citation formats to hyperlinksCitations
     print('finished')
