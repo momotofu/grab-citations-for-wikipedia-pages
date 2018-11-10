@@ -5,17 +5,20 @@ def open_and_read(file):
     """
     Opens a file and returns a list of the files lines.
     """
+    assert type(file) == str
+    print('file: ', file)
     try:
         with open(file, 'r') as fileData:
             return fileData.readlines()
-    except IOError:
-        print("Error: cant\'t find or read file")
+    except IOError as e:
+        print("Error: cant\'t find or read file: ", e)
 
 
-def get_html_from(url):
+def request_html_for(url):
     """
     Gets text response from request made to the 'url'.
     """
+    print('html requested for: ', url)
     try:
         response = requests.get(url)
         return response.text

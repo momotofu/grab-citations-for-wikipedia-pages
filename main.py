@@ -9,10 +9,11 @@ def main(app):
     # Store hyperlink sitations as key value pairs with the link
     # being the key.
     hyperlinksCitations = {}
+    citationFormats = app.params.citationFormats
 
     # Get hyperlinks from file and store in a list
     filename = app.params.filename
-    hyperlinks = open_and_read(filename)
+    hyperlinks = [x.strip() for x in open_and_read(filename)]
 
     # iterate through hyperLinks and retrieve citations
     for hyperlink in hyperlinks:
@@ -21,7 +22,7 @@ def main(app):
         # retrieve citation page hyperlink
         citationPageHyperlink = mainPageSoup.find(
             'a',
-            title='Information on how to cite this page')['href']
+            title='Information on how to cite this page')['href'].strip()
 
         # retrieve citation page soup
         citationPageSoup = bSoup(
@@ -29,11 +30,15 @@ def main(app):
             'html.parse')
 
         # Map citation formats to hyperlinksCitations
+    print('finished')
 
 
 main.add_param(
-    "filename",
-    help="A file of wikipedia page links separated by newlines")
+    'filename',
+    help='A file of wikipedia page links separated by newlines')
+main.add_param(
+    'citationFormats',
+    help='A list of citation formats separated by commas.')
 
 
 if __name__ == '__main__':
