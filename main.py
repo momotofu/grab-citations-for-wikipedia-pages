@@ -11,10 +11,10 @@ def main(app):
     # Store hyperlink sitations as key value pairs with the link
     # being the key.
     hyperlinksCitations = {}
-    citationFormats = app.params.citationFormats
+    citationFormats = app.params.citationFormats.split(' ')
+    filename = app.params.filename
 
     # Get hyperlinks from file and store in a list
-    filename = app.params.filename
     hyperlinks = [x.strip() for x in open_and_read(filename)]
 
     # iterate through hyperLinks and retrieve citations
@@ -31,15 +31,18 @@ def main(app):
             request_html_for(citationPageHyperlink),
             'html.parser')
 
-        print('citationPageSoup: ', citationPageSoup.title)
-
-        citation = get_citation_format_from(
-            citationPageSoup,
-            'MLA_Style_Manual')
-        print('citation: ', citation)
+        for citation_format in citationFormats:
+            key = mainPageSoup.title.text
+            citation = get_citation_format_from(
+                citationPageSoup,
+                citation_format)
+            if not key in hyperlinksCitations:
+                hyperlinksCitations[key] = [citation]
+            else:
+                hyperlinksCitations[key].append(citation)
 
         # Map citation formats to hyperlinksCitations
-    print('finished')
+    print('finished with: ', hyperlinksCitations)
 
 
 main.add_param(
