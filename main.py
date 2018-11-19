@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 
 from utils import open_and_read, request_html_for
-from utils import get_citation_format_from
+from utils import get_citation_format_from, format_citation_for
 from bs4 import BeautifulSoup as bSoup
 import cli.app
 
@@ -41,8 +41,10 @@ def main(app):
             else:
                 hyperlinksCitations[key].append(citation)
 
-        # Map citation formats to hyperlinksCitations
-    print('finished with: ', hyperlinksCitations)
+        with open('citedLinks.txt', 'w') as f:
+            for key in hyperlinksCitations:
+                citations = hyperlinksCitations[key]
+                f.write(format_citation_for(key, hyperlink, citations))
 
 
 main.add_param(

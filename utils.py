@@ -39,3 +39,17 @@ def get_citation_format_from(soup, citation_format):
             return citation_header.parent.findNextSibling('p').text
     except Exception as e:
         print('Something went wrong while searching citationPageSoup Error: ', e)
+
+def format_citation_for(title, hyperlink, citations):
+    """
+    Takes a hyperlink string and a citation list; which are then
+    formated into a readable string. That string is then written to
+    the file provided.
+    """
+    citation_string = title + ' ' + hyperlink + '\n'
+
+    for citation in citations:
+        citation_string += citation + '\n'
+
+    citation_string += '\n' # Add double spaces between each citation
+    return citation_string
