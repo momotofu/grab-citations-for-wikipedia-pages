@@ -32,6 +32,10 @@ def get_citation_format_from(soup, citation_format):
     for the given soup
     """
     try:
-        return soup.find(id=citation_format).parent.findNextSibling('p').text
-    except e:
-        print('Something went wrong while searching citationPageSoup', e)
+        citation_header = soup.find(id=citation_format)
+        if citation_header is None:
+            raise Exception('MLA format doesn\'t match the html header id')
+        else:
+            return citation_header.parent.findNextSibling('p').text
+    except Exception as e:
+        print('Something went wrong while searching citationPageSoup Error: ', e)
