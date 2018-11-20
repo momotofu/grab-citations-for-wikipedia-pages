@@ -41,7 +41,7 @@ def main(app):
             else:
                 hyperlinksCitations[key].append(citation)
 
-        with open('citedLinks.txt', 'w') as f:
+        with open('citedLinks.md', 'w') as f:
             f.write('# Citations For Links')
             f.write('\n')
             f.write('\n')
