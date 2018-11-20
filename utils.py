@@ -47,7 +47,7 @@ def format_citation_for(title, hyperlink, citations, citation_formats):
     the file provided.
     """
     citation_format_titles = [' '.join(x.split('_')).title() for x in citation_formats]
-    formated_text = '#' * 2 + ' ' + title + '\n'
+    formated_text = '#' * 2 + ' ' + title
     formated_text += hyperlink + '\n'
     # import pdb
     # pdb.set_trace()
