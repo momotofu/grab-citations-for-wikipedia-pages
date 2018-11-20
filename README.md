@@ -2,7 +2,7 @@
 Generate a citations page from a list of given links to wikipedia pages.
 
 ## Usage
-1. download repo `https://github.com/momotofu/grab-citations-for-wikipedia-pages.git`
+1. download repo `$ git clone https://github.com/momotofu/grab-citations-for-wikipedia-pages.git`
 2. Using the terminal change into repo directory `$ cd <repo path>`
 3. Make sure you have [pipenv installed](https://pipenv.readthedocs.io/en/latest/)
 4. Install dependencies using `$ pipenv install`
