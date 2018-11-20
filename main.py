@@ -44,7 +44,8 @@ def main(app):
         with open('citedLinks.txt', 'w') as f:
             for key in hyperlinksCitations:
                 citations = hyperlinksCitations[key]
-                f.write(format_citation_for(key, hyperlink, citations))
+                f.write(format_citation_for(key, hyperlink, citations,
+                    citationFormats))
 
 
 main.add_param(

@@ -40,16 +40,21 @@ def get_citation_format_from(soup, citation_format):
     except Exception as e:
         print('Something went wrong while searching citationPageSoup Error: ', e)
 
-def format_citation_for(title, hyperlink, citations):
+def format_citation_for(title, hyperlink, citations, citation_formats):
     """
     Takes a hyperlink string and a citation list; which are then
     formated into a readable string. That string is then written to
     the file provided.
     """
-    citation_string = title + ' ' + hyperlink + '\n'
+    citation_format_titles = [' '.join(x.split('_')).title() for x in citation_formats]
+    formated_text = '#' * 2 + ' ' + title + '\n'
+    formated_text += hyperlink + '\n'
+    # import pdb
+    # pdb.set_trace()
 
-    for citation in citations:
-        citation_string += citation + '\n'
+    for index, citation  in enumerate(citations):
+        formated_text += '#' * 4 + ' ' + citation_format_titles[index] + '\n'
+        formated_text += citation + '\n'
 
-    citation_string += '\n' # Add double spaces between each citation
-    return citation_string
+    formated_text += '\n' # Add a single space between each citation
+    return formated_text
