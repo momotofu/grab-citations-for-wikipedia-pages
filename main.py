@@ -37,18 +37,20 @@ def main(app):
                 citationPageSoup,
                 citation_format)
             if not key in hyperlinksCitations:
-                hyperlinksCitations[key] = [citation]
+                hyperlinksCitations[key] = {
+                    'hyperlink': hyperlink,
+                    'citations': [citation]
+                }
             else:
-                hyperlinksCitations[key].append(citation)
+                hyperlinksCitations[key]['citations'].append(citation)
 
-        with open('citedLinks.md', 'w') as f:
-            f.write('# Citations For Links')
-            f.write('\n')
-            f.write('\n')
-            for key in hyperlinksCitations:
-                citations = hyperlinksCitations[key]
-                f.write(format_citation_for(key, hyperlink, citations,
-                    citationFormats))
+    with open('citedLinks.md', 'w') as f:
+        f.write('# Citations For Links')
+        f.write('\n')
+        f.write('\n')
+        for key in hyperlinksCitations:
+            pageData = hyperlinksCitations[key]
+            f.write(format_citation_for(key, pageData, citationFormats))
 
 
 main.add_param(

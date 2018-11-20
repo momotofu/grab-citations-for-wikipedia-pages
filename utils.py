@@ -40,7 +40,7 @@ def get_citation_format_from(soup, citation_format):
     except Exception as e:
         print('Something went wrong while searching citationPageSoup Error: ', e)
 
-def format_citation_for(title, hyperlink, citations, citation_formats):
+def format_citation_for(title, pageData, citation_formats):
     """
     Takes a hyperlink string and a citation list; which are then
     formated into a readable string. That string is then written to
@@ -48,11 +48,9 @@ def format_citation_for(title, hyperlink, citations, citation_formats):
     """
     citation_format_titles = [' '.join(x.split('_')).title() for x in citation_formats]
     formated_text = '#' * 3 + ' [' + ' '.join(title.split(' ')[:-2]) + ']'
-    formated_text += '(%s)' % hyperlink + '\n'
-    # import pdb
-    # pdb.set_trace()
+    formated_text += '(' + pageData['hyperlink'] + ')' + '\n'
 
-    for index, citation  in enumerate(citations):
+    for index, citation  in enumerate(pageData['citations']):
         formated_text += '#' * 4 + ' ' + citation_format_titles[index] + '\n'
         formated_text += citation + '\n'
 
